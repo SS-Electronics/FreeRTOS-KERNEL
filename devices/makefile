@@ -62,7 +62,6 @@ ifeq ($(TARGET), STM32F401CDU6)
 DEVICE_SRCS += \
 stm32_f401cdu6_system.c \
 
-
 DEVICE_ASM_SRC += \
 stm32_f401xx_startup.s
 endif

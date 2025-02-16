@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "stm32_f401xx_irq.h": "c",
-        "stm32_f401xx.h": "c"
-    }
-}
