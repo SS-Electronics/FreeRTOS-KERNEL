@@ -1,0 +1,26 @@
+# Copyright (C) 2024 Subhajit Roy
+# This file is part of openAUTOSAR/BSW
+#
+# openAUTOSAR free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# RTOS Basic Software is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+
+LINKER_SCRIPT 				:= ./devices/stm32_f401cdu6_FLASH.ld
+
+BUILD_ARTIFACT_NAME 		:= F4xx_FreeRTOS_Kern_Example
+BUILD_ARTIFACT_EXTENSION 	:= elf
+BUILD_ARTIFACT_PREFIX 		:=
+BUILD_ARTIFACT 				:= $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
+BUILD_LOCATION 				:= ./build/
+OBJECTS_LOCATION			:= ./build/objs/
+
+
+
+
