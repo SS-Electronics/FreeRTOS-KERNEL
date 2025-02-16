@@ -2,10 +2,10 @@
 # Author:      Subhajit Roy  
 #              subhajitroy005@gmail.com 
 #
-# Moudle:      Modeule Device [ Local Build ] 
+# Moudle:      Modeule Kernel [ Local Build ] 
 # Info:        Compile sources based on spefic target 
 #                             
-# Dependency:  None
+# Dependency:  Configuration
 #
 # This file is part of FreeRTOS-KERNEL Project.
 # 
@@ -26,46 +26,27 @@
 -include ../make_config.mk
 
 $(info #################################)
-$(info Module: Device -- Source Build --)
+$(info Module: kernel -- Source Build --)
 
 
-NULL_STR :=
-FILE_EXT :=
-OBJECTS_LOCATION := ./build/objs/
-SOURCE_DIR		 := ./
+NULL_STR 			:=
+FILE_EXT 			:=
+OBJECTS_LOCATION 	:= ./build/objs/
+SOURCE_DIR		 	:= ./
 
 ifeq ( $(TARGET) , $(NULL_STR) )
-$(info Device: No Target Nselected.....!)
+$(info Kernel: No Target Nselected.....!)
 else
-$(info Device: Building Sources........!)
+$(info Kernel: Building Sources........!)
 endif
 
-#################  Configurations ##################################
-#-----------------------------------------------
-#  Devive Vendor:   ST Microelectronics
-#  Target       :   STM32F429VIT6
-#  Core         :   ARM-CM4
-#-----------------------------------------------
-
-ifeq ($(TARGET), STM32F429VIT6)
-DEVICE_SRCS += \
-DEVICES/stm32_f429xx_irq.c \
-IO_Driver/Dio.c
-endif
-
-#-----------------------------------------------
-#  Devive Vendor:   ST Microelectronics
-#  Target       :   STM32F401CDU6
-#  Core         :   ARM-CM4
-#-----------------------------------------------
-ifeq ($(TARGET), STM32F401CDU6)
-DEVICE_SRCS += \
-stm32_f401cdu6_system.c \
 
 
-DEVICE_ASM_SRC += \
-stm32_f401xx_startup.s
-endif
+
+KERN_SRCS += \
+kernel.c
+
+
 
 
 #################  END Configurations #############################
@@ -73,35 +54,23 @@ endif
 
 
 
-all: sources_build asm_build
-	@echo Module: Device
-	@echo Sources: $(DEVICE_SRCS) $(DEVICE_ASM_SRC)
+all: sources_build
+	@echo Module: Kernel
+	@echo Sources: $(KERN_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
-	@echo Device build completed! 
+	@echo Init build completed! 
 	@echo "#################################"
 
 
 sources_build:
 	@mkdir -p ../$(OBJECTS_LOCATION)
 
-	@for s in  $(DEVICE_SRCS); \
+	@for s in  $(KERN_SRCS); \
 	do \
 	echo ; \
 	echo Compiling ... $$s ; \
 	echo ; \
 	$(CC) -D$(TARGET) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
-	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
-	done
-
-asm_build:
-	@mkdir -p ../$(OBJECTS_LOCATION)
-
-	@for s in  $(DEVICE_ASM_SRC); \
-	do \
-	echo ; \
-	echo Compiling ... $$s ; \
-	echo ; \
-	$(CC) -D$(TARGET) $(CC_OPTIMIZATION) $(CC_ASSEMBLER_FLAGS) $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s ; \
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
 
