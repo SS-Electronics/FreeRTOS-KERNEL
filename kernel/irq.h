@@ -166,6 +166,8 @@ typedef	void (*irq_flow_handler_t)(struct irq_desc *desc);
  * @dir:	pointer to the proc/irq/NN/name entry
  */
 struct irqaction {
+	unsigned int	    irq;
+	unsigned int		flags;
 	irq_handler_t		handler;
 	void			*dev_id;
 	void __percpu		*percpu_dev_id;
@@ -173,17 +175,14 @@ struct irqaction {
 	irq_handler_t		thread_fn;
 	struct task_struct	*thread;
 	struct irqaction	*secondary;
-	unsigned int		irq;
-	unsigned int		flags;
-	unsigned long		thread_flags;
-	unsigned long		thread_mask;
-	const char		*name;
-	struct proc_dir_entry	*dir;
+
+
 } ____cacheline_internodealigned_in_smp;
 
 
 struct irq_desc {
-	struct irq_common_data	irq_common_data;
+	int32_t		irq_id;
+	irq_common_data	irq_common_data;
 	struct irq_data		irq_data;
 	struct irqstat __percpu	*kstat_irqs;
 	irq_flow_handler_t	handle_irq;

@@ -13,13 +13,6 @@
 */
 
 
-/*File Name: std_types.h
-   Date:     15th Nov 2024
-   Author:   Sourav Dey
-   Description: Header file for standard types.
-*/
-
-
 #ifndef STD_TYPES_H
 #define STD_TYPES_H
 
@@ -29,7 +22,7 @@
 # include <stddef.h>
 
 /*Typedefs*/
-typedef uint8_t                Std_ReturnType;
+typedef int32_t                Std_ReturnType;
 typedef uint8_t                boolean;
 
 /* Global defines*/

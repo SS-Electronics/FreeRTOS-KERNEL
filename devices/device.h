@@ -21,7 +21,6 @@
 
 #if defined(STM32F401CDU6)
 #include "stm32_f401xx.h"
-#include "stm32_f401xx_irq.h"
 #endif
 
 
