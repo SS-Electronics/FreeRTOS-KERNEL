@@ -76,7 +76,7 @@ main-build: clean_enviornment $(BUILD_ARTIFACT) secondary-outputs
 secondary-outputs: $(SIZE_OUTPUT) $(BUILD_ARTIFACT).list 
 
 
-$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build
+$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build init_build
 	$(CPP) -o $(BUILD_LOCATION)$(BUILD_ARTIFACT) @"object.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"$(LINKER_SCRIPT)" -Wl,-Map="$(BUILD_LOCATION)$(BUILD_ARTIFACT).map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo '##############################################'
 	@echo ''
@@ -108,6 +108,8 @@ $(BUILD_ARTIFACT).list: $(BUILD_ARTIFACT) makefile object.list $(OPTIONAL_TOOL_D
 devices_build:
 	make -C ./devices all TARGET=$(TARGET)
 
+init_build:
+	make -C ./init all TARGET=$(TARGET)
 
 
 
@@ -119,6 +121,7 @@ directory_check:
 	$(MKDIR)    build
 
 clean:
+	$(RM) object.list
 	$(RM) $(BUILD_LOCATION)objs/* 
 	$(RM) $(BUILD_LOCATION)* 
 	$(RMDIR) ./build

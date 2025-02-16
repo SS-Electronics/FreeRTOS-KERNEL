@@ -2,7 +2,7 @@
 # Author:      Subhajit Roy  
 #              subhajitroy005@gmail.com 
 #
-# Moudle:      Modeule Device [ Local Build ] 
+# Moudle:      Modeule Init [ Local Build ] 
 # Info:        Compile sources based on spefic target 
 #                             
 # Dependency:  None
@@ -26,7 +26,7 @@
 -include ../make_config.mk
 
 $(info #################################)
-$(info Module: Device -- Source Build --)
+$(info Module: Init -- Source Build --)
 
 
 NULL_STR :=
@@ -40,32 +40,13 @@ else
 $(info Device: Building Sources........!)
 endif
 
-#################  Configurations ##################################
-#-----------------------------------------------
-#  Devive Vendor:   ST Microelectronics
-#  Target       :   STM32F429VIT6
-#  Core         :   ARM-CM4
-#-----------------------------------------------
-
-ifeq ($(TARGET), STM32F429VIT6)
-DEVICE_SRCS += \
-DEVICES/stm32_f429xx_irq.c \
-IO_Driver/Dio.c
-endif
-
-#-----------------------------------------------
-#  Devive Vendor:   ST Microelectronics
-#  Target       :   STM32F401CDU6
-#  Core         :   ARM-CM4
-#-----------------------------------------------
-ifeq ($(TARGET), STM32F401CDU6)
-DEVICE_SRCS += \
-stm32_f401cdu6_system.c \
 
 
-DEVICE_ASM_SRC += \
-stm32_f401xx_startup.s
-endif
+
+INIT_SRCS += \
+main.c 
+
+
 
 
 #################  END Configurations #############################
@@ -73,35 +54,23 @@ endif
 
 
 
-all: sources_build asm_build
-	@echo Module: Device
-	@echo Sources: $(DEVICE_SRCS)
+all: sources_build
+	@echo Module: Init
+	@echo Sources: $(INIT_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
-	@echo Device build completed! 
+	@echo Init build completed! 
 	@echo "#################################"
 
 
 sources_build:
 	@mkdir -p ../$(OBJECTS_LOCATION)
 
-	@for s in  $(DEVICE_SRCS); \
+	@for s in  $(INIT_SRCS); \
 	do \
 	echo ; \
 	echo Compiling ... $$s ; \
 	echo ; \
 	$(CC) -D$(TARGET) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
-	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
-	done
-
-asm_build:
-	@mkdir -p ../$(OBJECTS_LOCATION)
-
-	@for s in  $(DEVICE_ASM_SRC); \
-	do \
-	echo ; \
-	echo Compiling ... $$s ; \
-	echo ; \
-	$(CC) -D$(TARGET) $(CC_OPTIMIZATION) $(CC_ASSEMBLER_FLAGS) $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s ; \
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
 

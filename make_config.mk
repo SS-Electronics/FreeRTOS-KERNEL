@@ -22,7 +22,7 @@
 RM							:= rm -rf
 RMDIR						:= rmdir --ignore-fail-on-non-empty
 MKDIR						:= mkdir -p
-
+COPY 						:= cp
 
 CC 							:= arm-none-eabi-gcc
 CPP							:= arm-none-eabi-g++
