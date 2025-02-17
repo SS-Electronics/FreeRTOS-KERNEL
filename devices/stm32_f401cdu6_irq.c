@@ -59,7 +59,7 @@ void SysTick_Handler(void)
 {
     if (cache_device_cpu_irq_handle[0].irq_handler != NULL)
     {
-        cache_device_cpu_irq_handle[0].irq_handler(NULL);
+        (*cache_device_cpu_irq_handle[0].irq_handler)(NULL);
         cache_device_cpu_irq_handle[0].hw_irq_counter++;
     }
 }
@@ -68,7 +68,7 @@ void SVC_Handler(void)
 {
     if (cache_device_cpu_irq_handle[1].irq_handler != NULL)
     {
-        cache_device_cpu_irq_handle[1].irq_handler(NULL);
+        (*cache_device_cpu_irq_handle[1].irq_handler)(NULL);
         cache_device_cpu_irq_handle[1].hw_irq_counter++;
     }
 }
@@ -77,7 +77,7 @@ void PendSV_Handler(void)
 {
     if (cache_device_cpu_irq_handle[2].irq_handler != NULL)
     {
-        cache_device_cpu_irq_handle[2].irq_handler(NULL);
+        (*cache_device_cpu_irq_handle[2].irq_handler)(NULL);
         cache_device_cpu_irq_handle[2].hw_irq_counter++;
     }
 }

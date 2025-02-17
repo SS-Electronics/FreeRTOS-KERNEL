@@ -71,6 +71,7 @@ typedef struct
 extern "C" {
 #endif
 
+
 type_device_cpu_irq_handle * dev_get_irq_cpu_handle(uint32_t irq_idx);     
 
 

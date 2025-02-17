@@ -27,10 +27,13 @@
 #include "main.h"
 
 
+type_irq_desc * local_desc;
 
 
+void systick_cb(void * des)
+{
 
-
+}
 
 
 int main(void)
@@ -41,7 +44,7 @@ int main(void)
      * Initialize kernel 
      */
     /* initilize interrupts */
-    
+    local_desc = register_hw_cb(0,systick_cb,0);
 
 
 
