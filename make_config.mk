@@ -27,6 +27,7 @@ COPY 						:= cp
 CC 							:= arm-none-eabi-gcc
 CPP							:= arm-none-eabi-g++
 CC_OBJDUMP					:= arm-none-eabi-objdump
+CC_OBJCPY					:= arm-none-eabi-objcopy
 CC_OPTIMIZATION				:= -O0 -g3 -c
 CC_EXTRA_FLAGS				:= --specs=nano.specs
 CC_INPUT_STD				:= -std=gnu99
