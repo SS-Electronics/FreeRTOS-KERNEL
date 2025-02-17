@@ -44,7 +44,8 @@ endif
 
 
 KERN_SRCS += \
-kernel.c
+kernel.c \
+irq.c
 
 
 

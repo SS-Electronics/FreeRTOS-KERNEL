@@ -26,7 +26,10 @@
 #include "device_irq.h"
 
 #define NO_OF_CPU_INTERRUPTS    3
-#define NO_OF_AOMM_INTERRUPTS   1
+#define NO_OF_COMM_INTERRUPTS   1
+
+
+#define NO_OF_TOTAL_INTERRUPTS  (NO_OF_CPU_INTERRUPTS + NO_OF_COMM_INTERRUPTS)
 
 
 
@@ -40,6 +43,9 @@ type_device_cpu_irq_handle * dev_get_irq_cpu_handle(uint32_t irq_idx)
 {
     if(irq_idx < NO_OF_CPU_INTERRUPTS )
     {
+        /* Reset the interrupt counters upon handle call / init */
+        cache_device_cpu_irq_handle[irq_idx].hw_irq_counter = 0;
+
         return &cache_device_cpu_irq_handle[irq_idx];
     }
     else
@@ -51,27 +57,27 @@ type_device_cpu_irq_handle * dev_get_irq_cpu_handle(uint32_t irq_idx)
 
 void SysTick_Handler(void)
 {
-    if (cache_device_cpu_irq_handle[0].irq_cb != NULL)
+    if (cache_device_cpu_irq_handle[0].irq_handler != NULL)
     {
-        cache_device_cpu_irq_handle[0].irq_cb();
-        cache_device_cpu_irq_handle[0].irq_status = TRUE;
+        cache_device_cpu_irq_handle[0].irq_handler(NULL);
+        cache_device_cpu_irq_handle[0].hw_irq_counter++;
     }
 }
 
 void SVC_Handler(void)
 {
-    if (cache_device_cpu_irq_handle[1].irq_cb != NULL)
+    if (cache_device_cpu_irq_handle[1].irq_handler != NULL)
     {
-        cache_device_cpu_irq_handle[1].irq_cb();
-        cache_device_cpu_irq_handle[1].irq_status = TRUE;
+        cache_device_cpu_irq_handle[1].irq_handler(NULL);
+        cache_device_cpu_irq_handle[1].hw_irq_counter++;
     }
 }
 
 void PendSV_Handler(void)
 {
-    if (cache_device_cpu_irq_handle[2].irq_cb != NULL)
+    if (cache_device_cpu_irq_handle[2].irq_handler != NULL)
     {
-        cache_device_cpu_irq_handle[2].irq_cb();
-        cache_device_cpu_irq_handle[2].irq_status = TRUE;
+        cache_device_cpu_irq_handle[2].irq_handler(NULL);
+        cache_device_cpu_irq_handle[2].hw_irq_counter++;
     }
 }

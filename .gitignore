@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 .project
+.vscode/
 
 # Object files
 *.o

@@ -4,7 +4,7 @@
  *              subhajitroy005@gmail.com 
  *
  * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Compile sources based on spefic target 
+ * Info:        Interrupt registration and constrols from user and kernel space. 
  *                            
  * Dependency:  None
  *
@@ -26,6 +26,25 @@
 #ifndef __IRQ_H__
 #define __IRQ_H__
 
+/* Stabdard include */
+#include "../include/std/std_types.h"
+
+/* Device interrupt include */
+#include "../devices/device_irq.h"
+
+
+#define MAX_IRQ_SERV		10 	// Maximum Irq services from hardware
+
+
+enum __kernel_interrupts_list
+{
+	IRQ_1_SYS_TICK = 0,
+	IRQ_2_PEND_SV,
+	IRQ_3_SW_INT,
+	IRQ_COMM_1,
+	IRQ_COMM_2,
+	IRQ_COMM_3
+};
 
 
 
@@ -35,221 +54,115 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * struct irqstat - interrupt statistics
+ * @counter:	real-time interrupt count
+ * @ref:	snapshot of interrupt count
+ */
+typedef struct  
+{
+	uint32_t				counter;
+	uint32_t				service_ts;
+}type_irq_irqstat;
 
 
 
 /**
  * struct irq_common_data - per irq data shared by all irqchips
- * @state_use_accessors: status information for irq chip functions.
- *			Use accessor functions to deal with it
- * @node:		node index useful for balancing
- * @handler_data:	per-IRQ data for the irq_chip methods
- * @affinity:		IRQ affinity on SMP. If this is an IPI
- *			related irq, then this is the mask of the
- *			CPUs to which an IPI can be sent.
- * @effective_affinity:	The effective IRQ affinity on SMP as some irq
- *			chips do not allow multi CPU destinations.
- *			A subset of @affinity.
- * @msi_desc:		MSI descriptor
- * @ipi_offset:		Offset of first IPI target cpu in @affinity. Optional.
+ * @id: 			Identifier between interrupts.
+ * @handler_data: 	Handler Passed data 
+ * @sem:			Counting semaphore
  */
-struct irq_common_data {
-	unsigned int		__private state_use_accessors;
-#ifdef CONFIG_NUMA
-	unsigned int		node;
-#endif
-	void			*handler_data;
-	struct msi_desc		*msi_desc;
-#ifdef CONFIG_SMP
-	cpumask_var_t		affinity;
-#endif
-#ifdef CONFIG_GENERIC_IRQ_EFFECTIVE_AFF_MASK
-	cpumask_var_t		effective_affinity;
-#endif
-#ifdef CONFIG_GENERIC_IRQ_IPI
-	unsigned int		ipi_offset;
-#endif
-};
+typedef struct 
+{
+	uint32_t				id;
+	void					*handler_data;
+	uint32_t 				sem;
+}type_irq_common_data;
 
-/**
- * struct irq_desc -    interrupt descriptor
- * @irq_common_data:	per irq and chip data passed down to chip functions
- * @kstat_irqs:		    irq stats per cpu
- * @handle_irq:		    highlevel irq-events handler
- * @action:		the irq action chain
- * @status_use_accessors: status information
- * @core_internal_state__do_not_mess_with_it: core internal status information
- * @depth:		disable-depth, for nested irq_disable() calls
- * @wake_depth:		enable depth, for multiple irq_set_irq_wake() callers
- * @tot_count:		stats field for non-percpu irqs
- * @irq_count:		stats field to detect stalled irqs
- * @last_unhandled:	aging timer for unhandled count
- * @irqs_unhandled:	stats field for spurious unhandled interrupts
- * @threads_handled:	stats field for deferred spurious detection of threaded handlers
- * @threads_handled_last: comparator field for deferred spurious detection of threaded handlers
- * @lock:		locking for SMP
- * @affinity_hint:	hint to user space for preferred irq affinity
- * @affinity_notify:	context for notification of affinity changes
- * @pending_mask:	pending rebalanced interrupts
- * @threads_oneshot:	bitfield to handle shared oneshot threads
- * @threads_active:	number of irqaction threads currently running
- * @wait_for_threads:	wait queue for sync_irq to wait for threaded handlers
- * @nr_actions:		number of installed actions on this descriptor
- * @no_suspend_depth:	number of irqactions on a irq descriptor with
- *			IRQF_NO_SUSPEND set
- * @force_resume_depth:	number of irqactions on a irq descriptor with
- *			IRQF_FORCE_RESUME set
- * @rcu:		rcu head for delayed free
- * @kobj:		kobject used to represent this struct in sysfs
- * @request_mutex:	mutex to protect request/free before locking desc->lock
- * @dir:		/proc/irq/ procfs entry
- * @debugfs_file:	dentry for the debugfs file
- * @name:		flow handler name for /proc/interrupts output
- */
 
 
 /**
  * struct irq_data - per irq chip data passed down to chip functions
- * @mask:		precomputed bitmask for accessing the chip registers
- * @irq:		interrupt number
- * @hwirq:		hardware interrupt number, local to the interrupt domain
- * @common:		point to data shared by all irqchips
- * @chip:		low level interrupt hardware access
- * @domain:		Interrupt translation domain; responsible for mapping
- *			between hwirq number and linux irq number.
- * @parent_data:	pointer to parent struct irq_data to support hierarchy
- *			irq_domain
- * @chip_data:		platform-specific per-chip private data for the chip
- *			methods, to allow shared chip implementations
+ * @mask:			precomputed bitmask for accessing the chip registers
+ * @hw_irq_no:		HW interrupt number
+ * @common_data:	Common data between different callbacks registration
+ * @ll_drv_data:	Hardware interrupt status and memory allocation pointers
  */
-struct irq_data {
-	u32			mask;
-	unsigned int		irq;
-	irq_hw_number_t		hwirq;
-	struct irq_common_data	*common;
-	struct irq_chip		*chip;
-	struct irq_domain	*domain;
-#ifdef	CONFIG_IRQ_DOMAIN_HIERARCHY
-	struct irq_data		*parent_data;
-#endif
-	void			*chip_data;
-};
+typedef struct  
+{
+	uint32_t				mask;
+	uint32_t				hw_irq_no;
+	type_irq_common_data	*common_data;
+	void					*ll_drv_data;
+}type_irq_data;
+
+
 
 /**
- * struct irqstat - interrupt statistics
- * @cnt:	real-time interrupt count
- * @ref:	snapshot of interrupt count
+ * struct irq_desc -    interrupt descriptor
+ * @irq_id:				Kernel mapped id for OS operation
+ * @kstat_irqs:		    irq stats per cpu
+ * @irq_data:		    Irq data User space to kernel_space
+ * @irq_handle:			Handler registration from user space
+ * @error_status: 		Error status on hardware status
+ * @error_counter: 		Error counter value
+ * @handled_ts:			last handled time stamp
+ * @event_generated:	Generated events
  */
-struct irqstat {
-	unsigned int	cnt;
-#ifdef CONFIG_GENERIC_IRQ_STAT_SNAPSHOT
-	unsigned int	ref;
+typedef struct  
+{
+	int32_t					irq_id;
+	type_irq_irqstat		irq_stat;
+	type_irq_data			irq_data;
+	irq_handler_t			irq_handle;
+	uint32_t				error_status;
+	uint32_t				error_counter;
+	uint32_t				handled_ts;
+	uint32_t				event_generated;
+}type_irq_desc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ifdef __cplusplus
+extern "C" {
 #endif
-};
-
-typedef	void (*irq_flow_handler_t)(struct irq_desc *desc);
-
-/**
- * struct irqaction - per interrupt action descriptor
- * @handler:	interrupt handler function
- * @name:	name of the device
- * @dev_id:	cookie to identify the device
- * @percpu_dev_id:	cookie to identify the device
- * @next:	pointer to the next irqaction for shared interrupts
- * @irq:	interrupt number
- * @flags:	flags (see IRQF_* above)
- * @thread_fn:	interrupt handler function for threaded interrupts
- * @thread:	thread pointer for threaded interrupts
- * @secondary:	pointer to secondary irqaction (force threading)
- * @thread_flags:	flags related to @thread
- * @thread_mask:	bitmask for keeping track of @thread activity
- * @dir:	pointer to the proc/irq/NN/name entry
- */
-struct irqaction {
-	unsigned int	    irq;
-	unsigned int		flags;
-	irq_handler_t		handler;
-	void			*dev_id;
-	void __percpu		*percpu_dev_id;
-	struct irqaction	*next;
-	irq_handler_t		thread_fn;
-	struct task_struct	*thread;
-	struct irqaction	*secondary;
 
 
-} ____cacheline_internodealigned_in_smp;
+type_irq_desc * register_hw_cb(uint32_t interrupt_id, const irq_handler_t irq_handle_reg, uint32_t irq_idx); 
 
 
-struct irq_desc {
-	int32_t		irq_id;
-	irq_common_data	irq_common_data;
-	struct irq_data		irq_data;
-	struct irqstat __percpu	*kstat_irqs;
-	irq_flow_handler_t	handle_irq;
-	struct irqaction	*action;	/* IRQ action list */
-	unsigned int		status_use_accessors;
-	unsigned int		core_internal_state__do_not_mess_with_it;
-	unsigned int		depth;		/* nested irq disables */
-	unsigned int		wake_depth;	/* nested wake enables */
-	unsigned int		tot_count;
-	unsigned int		irq_count;	/* For detecting broken IRQs */
-	unsigned long		last_unhandled;	/* Aging timer for unhandled count */
-	unsigned int		irqs_unhandled;
-	atomic_t		threads_handled;
-	int			threads_handled_last;
-	raw_spinlock_t		lock;
-	struct cpumask		*percpu_enabled;
-	const struct cpumask	*percpu_affinity;
-#ifdef CONFIG_SMP
-	const struct cpumask	*affinity_hint;
-	struct irq_affinity_notify *affinity_notify;
-#ifdef CONFIG_GENERIC_PENDING_IRQ
-	cpumask_var_t		pending_mask;
+
+
+
+
+
+
+
+#ifdef __cplusplus
+}
 #endif
-#endif
-	unsigned long		threads_oneshot;
-	atomic_t		threads_active;
-	wait_queue_head_t       wait_for_threads;
-#ifdef CONFIG_PM_SLEEP
-	unsigned int		nr_actions;
-	unsigned int		no_suspend_depth;
-	unsigned int		cond_suspend_depth;
-	unsigned int		force_resume_depth;
-#endif
-#ifdef CONFIG_PROC_FS
-	struct proc_dir_entry	*dir;
-#endif
-#ifdef CONFIG_GENERIC_IRQ_DEBUGFS
-	struct dentry		*debugfs_file;
-	const char		*dev_name;
-#endif
-#ifdef CONFIG_SPARSE_IRQ
-	struct rcu_head		rcu;
-	struct kobject		kobj;
-#endif
-	struct mutex		request_mutex;
-	int			parent_irq;
-	struct module		*owner;
-	const char		*name;
-#ifdef CONFIG_HARDIRQS_SW_RESEND
-	struct hlist_node	resend_node;
-#endif
-} ____cacheline_internodealigned_in_smp;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

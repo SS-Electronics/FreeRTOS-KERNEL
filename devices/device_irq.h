@@ -30,6 +30,11 @@
 #include "../include/std/std_types.h"
 
 
+/**
+ * Function pointer typedefs
+ */
+typedef	void (*irq_handler_t)(void* des);
+
 
 
 enum __irq_descriptions
@@ -47,9 +52,8 @@ enum __irq_descriptions
  */
 typedef struct 
 {
-    int32_t     irq_id;
-    int         (* irq_cb)();
-    int         irq_status;
+    irq_handler_t   irq_handler;
+    int             hw_irq_counter;
 }type_device_cpu_irq_handle;
 
 
