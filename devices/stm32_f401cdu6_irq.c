@@ -55,7 +55,7 @@ type_device_cpu_irq_handle * dev_get_irq_cpu_handle(uint32_t irq_idx)
 }
 
 
-void SysTick_Handler(void)
+void RTC_WKUP_IRQHandler(void)
 {
     if (cache_device_cpu_irq_handle[0].irq_handler != NULL)
     {
@@ -64,7 +64,7 @@ void SysTick_Handler(void)
     }
 }
 
-void SVC_Handler(void)
+void RCC_IRQHandler(void)
 {
     if (cache_device_cpu_irq_handle[1].irq_handler != NULL)
     {
@@ -73,7 +73,7 @@ void SVC_Handler(void)
     }
 }
 
-void PendSV_Handler(void)
+void TIM2_IRQHandler(void)
 {
     if (cache_device_cpu_irq_handle[2].irq_handler != NULL)
     {

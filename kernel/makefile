@@ -53,16 +53,17 @@ FREERTOS_INC_SRC_DIR += \
 -I../../FreeRTOS-KERNEL-conf/
 
 
-FREERTOS_SRCS += \
-FreeRTOS-Kernel/croutine.c \
-FreeRTOS-Kernel/event_groups.c \
-FreeRTOS-Kernel/list.c \
-FreeRTOS-Kernel/queue.c \
-FreeRTOS-Kernel/stream_buffer.c \
-FreeRTOS-Kernel/task.c \
-FreeRTOS-Kernel/timers.c \
-FreeRTOS-Kernel/portable/MemMang/heap_4.c
+FREERTOS_SRCS_PATH +=\
+FreeRTOS-Kernel/
 
+FREERTOS_SRCS += \
+croutine.c \
+event_groups.c \
+list.c \
+queue.c \
+stream_buffer.c \
+tasks.c \
+timers.c
 
 
 #-----------------------------------------------
@@ -72,9 +73,19 @@ ifeq ($(TARGET), STM32F401CDU6)
 FREERTOS_INC_SRC_DIR += \
 -IFreeRTOS-Kernel/portable/GCC/ARM_CM4F
 
+FREERTOS_INC_SRC_DIR_1 += \
+FreeRTOS-Kernel/portable/MemMang/
 
-FREERTOS_SRCS += \
-FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c
+FREERTOS_PORT_SRCS_DIR += \
+FreeRTOS-Kernel/portable/GCC/ARM_CM4F/
+
+
+FREERTOS_PORT_SRCS += \
+port.c
+
+FREERTOS_INC_SRCS_1 += \
+heap_4.c
+
 endif
 
 
@@ -117,18 +128,29 @@ sources_build:
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
 
+	
 
 
 
 
+free_rtos_kernel_build:
+	@mkdir -p ../$(OBJECTS_LOCATION)
 
-free_rtos_kernel_build: $(FREERTOS_SRCS)
-	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$<.o $<; \
+	@for s in  $(FREERTOS_SRCS); \
+	do \
+	echo ; \
+	echo Compiling ... $$s ; \
+	echo ; \
+	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o  ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$(FREERTOS_SRCS_PATH)$$s; \
+	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
+	done
+
+	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$(FREERTOS_PORT_SRCS).o $(SOURCE_DIR)$(FREERTOS_PORT_SRCS_DIR)$(FREERTOS_PORT_SRCS);
+	echo "$(OBJECTS_LOCATION)$(FREERTOS_PORT_SRCS).o" >> ../object.list ; 
 
 
-
-
-
+	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$(FREERTOS_INC_SRCS_1).o $(SOURCE_DIR)$(FREERTOS_INC_SRC_DIR_1)$(FREERTOS_INC_SRCS_1);
+	echo "$(OBJECTS_LOCATION)$(FREERTOS_INC_SRCS_1).o" >> ../object.list ; 
 
 
 
