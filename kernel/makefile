@@ -42,10 +42,52 @@ endif
 
 
 
-
 KERN_SRCS += \
 kernel.c \
 irq.c
+
+
+# FreeRTOS related header include directories
+FREERTOS_INC_SRC_DIR += \
+-IFreeRTOS-Kernel/include/ \
+-I../../FreeRTOS-KERNEL-conf/
+
+
+FREERTOS_SRCS += \
+FreeRTOS-Kernel/croutine.c \
+FreeRTOS-Kernel/event_groups.c \
+FreeRTOS-Kernel/list.c \
+FreeRTOS-Kernel/queue.c \
+FreeRTOS-Kernel/stream_buffer.c \
+FreeRTOS-Kernel/task.c \
+FreeRTOS-Kernel/timers.c \
+FreeRTOS-Kernel/portable/MemMang/heap_4.c
+
+
+
+#-----------------------------------------------
+#  Core         :   ARM-CM4
+#-----------------------------------------------
+ifeq ($(TARGET), STM32F401CDU6)
+FREERTOS_INC_SRC_DIR += \
+-IFreeRTOS-Kernel/portable/GCC/ARM_CM4F
+
+
+FREERTOS_SRCS += \
+FreeRTOS-Kernel/portable/GCC/ARM_CM4F/port.c
+endif
+
+
+# Target wise configurations
+
+
+
+
+
+
+
+
+
 
 
 
@@ -55,7 +97,7 @@ irq.c
 
 
 
-all: sources_build
+all: sources_build free_rtos_kernel_build
 	@echo Module: Kernel
 	@echo Sources: $(KERN_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
@@ -74,6 +116,19 @@ sources_build:
 	$(CC) -D$(TARGET) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
+
+
+
+
+
+
+free_rtos_kernel_build: $(FREERTOS_SRCS)
+	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$<.o $<; \
+
+
+
+
+
 
 
 
