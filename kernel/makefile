@@ -44,8 +44,9 @@ endif
 
 KERN_SRCS += \
 kernel.c \
-irq.c
-
+irq.c \
+kernel_entry.c \
+kernel_thread.c \
 
 # FreeRTOS related header include directories
 FREERTOS_INC_SRC_DIR += \

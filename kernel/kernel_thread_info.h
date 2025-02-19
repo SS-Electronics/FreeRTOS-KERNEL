@@ -1,10 +1,10 @@
 /*
- * File:        kernel.h
+ * File:        kernel_thread_info.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
  * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Main kernel api [ Thread related apis]
+ * Info:        Thread related types and declaration
  *                            
  * Dependency:  None
  *
@@ -24,8 +24,14 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __KERNEL_H__
-#define  __KERNEL_H__
+ #ifndef __KERNEL_THREAD_INFI_H___
+ #define __KERNEL_THREAD_INFI_H___
+
+
+#include "../include/std/std_types.h"
+
+
+#define THEREAD_CREATE_FAILED  -1
 
 
 
@@ -38,39 +44,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-}
-#endif
-
-
-
-
-
-
-
-
-
-#endif
-
+ #endif

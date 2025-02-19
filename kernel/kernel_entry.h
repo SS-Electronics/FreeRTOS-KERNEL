@@ -1,10 +1,10 @@
 /*
- * File:        kernel.h
+ * File:        kernel_entry.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
  * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Main kernel api [ Thread related apis]
+ * Info:        Entry point and system calls
  *                            
  * Dependency:  None
  *
@@ -24,53 +24,42 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __KERNEL_H__
-#define  __KERNEL_H__
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-}
-#endif
-
-
-
-
-
-
-
-
-
-#endif
-
+ #ifndef __KERNEL_ENTRY_H__
+ #define __KERNEL_ENTRY_H__
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #ifdef __cplusplus
+ }
+ #endif
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #endif
+ 
+ 
