@@ -12,7 +12,7 @@
 # GNU General Public License for more details.
 
 
-LINKER_SCRIPT 				:= ./devices/stm32_f401cdu6_FLASH.ld
+LINKER_SCRIPT 				:= ./devices/stm32_f401_D_FLASH.ld
 
 BUILD_ARTIFACT_NAME 		:= freertos_kernel
 BUILD_ARTIFACT_EXTENSION 	:= elf

@@ -44,7 +44,7 @@ INC_SRC_DIR += \
 -I../../FreeRTOS-KERNEL-conf/
 
 #Target Specific include
-ifeq ($(TARGET), STM32F401CDU6)
+ifeq ($(TARGET), STM32F401)
 INC_SRC_DIR += \
 -I../kernel/FreeRTOS-Kernel/portable/GCC/ARM_CM4F
 endif

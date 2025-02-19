@@ -19,8 +19,8 @@
 
 
 
-#if defined(STM32F401CDU6)
-#include "stm32_f401xx.h"
+#if defined(STM32F401)
+#include "stm32_f401.h"
 #endif
 
 

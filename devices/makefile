@@ -47,9 +47,9 @@ endif
 #  Core         :   ARM-CM4
 #-----------------------------------------------
 
-ifeq ($(TARGET), STM32F429VIT6)
+ifeq ($(TARGET), STM32F429 )
 DEVICE_SRCS += \
-DEVICES/stm32_f429xx_irq.c \
+DEVICES/stm32_f429_irq.c \
 IO_Driver/Dio.c
 endif
 
@@ -58,13 +58,13 @@ endif
 #  Target       :   STM32F401CDU6
 #  Core         :   ARM-CM4
 #-----------------------------------------------
-ifeq ($(TARGET), STM32F401CDU6)
+ifeq ($(TARGET), STM32F401)
 DEVICE_SRCS += \
-stm32_f401cdu6_system.c \
-stm32_f401cdu6_irq.c
+stm32_f401_system.c \
+stm32_f401_irq.c
 
 DEVICE_ASM_SRC += \
-stm32_f401xx_startup.s
+stm32_f401_startup.s
 endif
 
 
