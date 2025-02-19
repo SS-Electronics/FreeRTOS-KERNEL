@@ -29,9 +29,7 @@
 
 #include "../devices/device.h"
 
-#include "../kernel/irq.h"
 #include "../kernel/kernel.h"
-
 
 
 

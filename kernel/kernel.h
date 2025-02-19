@@ -27,8 +27,10 @@
 #ifndef __KERNEL_H__
 #define  __KERNEL_H__
 
-
-
+#include "irq.h"
+#include "kernel_entry.h"
+#include "kernel_thread.h"
+#include "kernel_thread_info.h"
 
 
 

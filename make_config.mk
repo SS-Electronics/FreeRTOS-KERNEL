@@ -37,6 +37,17 @@ CC_LINKER_INPUT				:= -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-grou
 CC_ASSEMBLER_FLAGS			:= -x assembler-with-cpp
 CC_INCLUDE_DIR				:= ../
 
+#General Include
+INC_SRC_DIR += \
+-I../ \
+-I../kernel/FreeRTOS-Kernel/Include/ \
+-I../../FreeRTOS-KERNEL-conf/
+
+#Target Specific include
+ifeq ($(TARGET), STM32F401CDU6)
+INC_SRC_DIR += \
+-I../kernel/FreeRTOS-Kernel/portable/GCC/ARM_CM4F
+endif
 
 
 C++M_SRCS := 

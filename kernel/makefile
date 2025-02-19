@@ -49,10 +49,10 @@ kernel_entry.c \
 kernel_thread.c \
 
 # FreeRTOS related header include directories
+
 FREERTOS_INC_SRC_DIR += \
 -IFreeRTOS-Kernel/include/ \
 -I../../FreeRTOS-KERNEL-conf/
-
 
 FREERTOS_SRCS_PATH +=\
 FreeRTOS-Kernel/
@@ -125,7 +125,7 @@ sources_build:
 	echo ; \
 	echo Compiling ... $$s ; \
 	echo ; \
-	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
+	$(CC) -D$(TARGET) $(INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
 
