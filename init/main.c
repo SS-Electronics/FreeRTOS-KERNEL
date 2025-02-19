@@ -35,14 +35,17 @@ void systick_cb(void * des)
 
 }
 
-void task_1(void * arg)
+int task_1(void * arg)
 {
+    int * ptr = arg;
 
     while(1)
     {
 
     }
 }
+
+int a = 30;
 
 type_thread_struct thread_1;
 
@@ -55,20 +58,20 @@ int main(void)
      * Initialize kernel 
      */
     /* initilize interrupts */
-   // local_desc = register_hw_cb(0,systick_cb,0);
+    local_desc = register_hw_cb(0,systick_cb,0);
 
    
 
-    int id = theread_create(task_1, &thread_1, 128, 1, "hello", NULL);
+    int id = theread_create(&task_1, &thread_1, 128, 1, "hello", NULL);
 
 
 
-    int a = 30;
+    
 
 
     while(1)
     {
-        
+        a++;   
     }
     return 0;
 }

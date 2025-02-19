@@ -27,7 +27,7 @@
  #include "kernel_thread.h"
 
 
-static uint32_t     thread_counter = 0;
+static uint32_t     thread_counter = 1;
 
 
  

@@ -41,8 +41,8 @@ static type_irq_desc cache_irq_desc[ MAX_IRQ_SERV ];
 type_irq_desc * register_hw_cb(uint32_t interrupt_id, const irq_handler_t irq_handle_reg, uint32_t irq_idx)
 {
     /* Get the indexed hardware handles */
-    //type_device_cpu_irq_handle* dev_irq_handle = dev_get_irq_cpu_handle(irq_idx);
-    type_device_cpu_irq_handle* dev_irq_handle = NULL;
+    type_device_cpu_irq_handle* dev_irq_handle = dev_get_irq_cpu_handle(irq_idx);
+
     if( (dev_irq_handle != NULL)    && \
         (interrupt_id < MAX_IRQ_SERV)   \
       )
