@@ -44,10 +44,9 @@ static uint32_t     thread_counter = 0;
                                 parameters,
                                 (UBaseType_t)priority,
                                 &(thread_handle->thread_handle) );
-        if( returned = pdPASS)
+        if( returned == pdPASS)
         {
             thread_handle->thread_id            = thread_counter++;
-            thread_handle->child_thread_ptr     = NULL;
             return thread_counter;
         }
         else

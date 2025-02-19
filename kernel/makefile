@@ -125,7 +125,7 @@ sources_build:
 	echo ; \
 	echo Compiling ... $$s ; \
 	echo ; \
-	$(CC) -D$(TARGET) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
+	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
 

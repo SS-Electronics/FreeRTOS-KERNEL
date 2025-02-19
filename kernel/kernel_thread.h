@@ -66,16 +66,14 @@ typedef struct
  * @preempt_value:  	1 => preemptable, 0 => NON
  * @stack: 		        Thread Stackpointer
  */
-typedef struct 
+typedef struct
 {
     uint32_t                    thread_id;
     TaskHandle_t                thread_handle;
     type_thread_info            thread_info;
-    type_thread_struct          *child_thread_ptr;
     uint32_t                    current_cpu;
     int32_t			            preempt_value; 
     void                        *stack;
-
 }type_thread_struct;
 
 
