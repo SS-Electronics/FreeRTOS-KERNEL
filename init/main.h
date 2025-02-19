@@ -27,8 +27,6 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-#include "../devices/device.h"
-
 #include "../kernel/kernel.h"
 
 

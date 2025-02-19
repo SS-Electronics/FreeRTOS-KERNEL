@@ -35,7 +35,7 @@ void systick_cb(void * des)
 
 }
 
-int task_1(void * arg)
+void task_1(void * arg)
 {
     int * ptr = arg;
 
