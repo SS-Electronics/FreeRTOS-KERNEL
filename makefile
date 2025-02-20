@@ -76,7 +76,7 @@ main-build: clean_enviornment $(BUILD_ARTIFACT) secondary-outputs
 secondary-outputs: $(SIZE_OUTPUT) $(BUILD_ARTIFACT).list 
 
 
-$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build kernel_build init_build
+$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build kernel_build init_build service_build
 # -mcpu=cortex-m4 -T"/home/subhajitroy005/STM32CubeIDE/workspace_1.15.0/STm32f401_src/STM32F401CDUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STm32f401_src.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	$(CPP) -o $(BUILD_LOCATION)$(BUILD_ARTIFACT) @"object.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"$(LINKER_SCRIPT)" -Wl,-Map="$(BUILD_LOCATION)$(BUILD_ARTIFACT).map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	$(CC_OBJDUMP) -S ./build/${BUILD_ARTIFACT} > ./build/${BUILD_ARTIFACT}.lss
@@ -117,7 +117,8 @@ init_build:
 kernel_build:
 	make -C ./kernel all TARGET=$(TARGET)
 
-
+service_build:
+	make -C ./services all TARGET=$(TARGET)
 
 
 directory_check:
