@@ -25,22 +25,19 @@
 
 -include ../make_config.mk
 
-$(info #################################)
-$(info Module: Device -- Source Build --)
-
-
-NULL_STR :=
-FILE_EXT :=
-OBJECTS_LOCATION := ./build/objs/
-SOURCE_DIR		 := ./
+$(info ################################# <<<<)
+$(info Module:   Device)
 
 ifeq ( $(TARGET) , $(NULL_STR) )
-$(info Device: No Target Nselected.....!)
+$(error No Target Selected.....!)
 else
-$(info Device: Building Sources........!)
+$(info Target:  $(TARGET))
 endif
 
-#################  Configurations ##################################
+
+
+
+#################  START Configurations #############################
 #-----------------------------------------------
 #  Devive Vendor:   ST Microelectronics
 #  Target       :   STM32F429VIT6
@@ -74,11 +71,10 @@ endif
 
 
 all: sources_build asm_build
-	@echo Module: Device
 	@echo Sources: $(DEVICE_SRCS) $(DEVICE_ASM_SRC)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
-	@echo Device build completed! 
-	@echo "#################################"
+	@echo Device build completed.......! 
+	@echo "################################# >>>>"
 
 
 sources_build:

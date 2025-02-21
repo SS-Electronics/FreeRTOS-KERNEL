@@ -1,10 +1,10 @@
 /*
- * File:        kernel.h
+ * File:        kernel_mem.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
  * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Main kernel api [ Thread related apis]
+ * Info:        Kernel Memory allocation supporting MPU
  *                            
  * Dependency:  None
  *
@@ -24,23 +24,11 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __KERNEL_H__
-#define  __KERNEL_H__
-
-/* Standard Include */
+#ifndef __KERNEL_MEM_H__
+#define __KERNEL_MEM_H__
 
 
-#include "irq.h"
-#include "kernel_entry.h"
-#include "kernel_thread.h"
-#include "kernel_thread_info.h"
 #include "../include/std/std_types.h"
-
-
-
-#include "../devices/device.h"
-#include "../devices/device_irq.h"
-
 
 
 
@@ -60,11 +48,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-
-
-
+#endif /* __cplusplus */
 
 
 
@@ -72,15 +56,7 @@ extern "C" {
 
 #ifdef __cplusplus
 }
-#endif
-
-
-
-
-
-
-
+#endif /* __cplusplus */
 
 
 #endif
-

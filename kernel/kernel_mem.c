@@ -1,10 +1,10 @@
 /*
- * File:        kernel.h
+ * File:        kernel_mem.c
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
  * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Main kernel api [ Thread related apis]
+ * Info:        Kernel Memory allocation definition
  *                            
  * Dependency:  None
  *
@@ -24,63 +24,31 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __KERNEL_H__
-#define  __KERNEL_H__
-
-/* Standard Include */
-
-
-#include "irq.h"
-#include "kernel_entry.h"
-#include "kernel_thread.h"
-#include "kernel_thread_info.h"
-#include "../include/std/std_types.h"
+ #include "kernel_mem.h"
 
 
 
-#include "../devices/device.h"
-#include "../devices/device_irq.h"
+void * kmalloc(size_t size)
+{
+	void *ret = NULL;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
+	ret = malloc(size);
+	
+	return ret;
 }
-#endif
+
+int32_t kfree(void *p)
+{
+    if(p != NULL)
+    {
+        free(p);
+        return MEM_OP_OK;
+    }
+    else
+    {
+        return MEM_OP_NULL_PTR;
+    }
+}
 
 
-
-
-
-
-
-
-
-#endif
 

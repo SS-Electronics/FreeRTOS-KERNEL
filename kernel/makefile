@@ -25,28 +25,25 @@
 
 -include ../make_config.mk
 
-$(info #################################)
-$(info Module: kernel -- Source Build --)
 
-
-NULL_STR 			:=
-FILE_EXT 			:=
-OBJECTS_LOCATION 	:= ./build/objs/
-SOURCE_DIR		 	:= ./
+$(info ################################# <<<<)
+$(info Module:   Kernel)
 
 ifeq ( $(TARGET) , $(NULL_STR) )
-$(info Kernel: No Target Nselected.....!)
+$(error No Target Selected.....!)
 else
-$(info Kernel: Building Sources........!)
+$(info Target:  $(TARGET))
 endif
 
 
+#################  START Configurations #############################
 
 KERN_SRCS += \
 kernel.c \
 irq.c \
 kernel_entry.c \
 kernel_thread.c \
+kernel_mem.c
 
 # FreeRTOS related header include directories
 
@@ -66,6 +63,7 @@ stream_buffer.c \
 tasks.c \
 timers.c
 
+# Target wise configurations
 
 #-----------------------------------------------
 #  Core         :   ARM-CM4
@@ -90,31 +88,16 @@ heap_4.c
 endif
 
 
-# Target wise configurations
-
-
-
-
-
-
-
-
-
-
-
-
-
 #################  END Configurations #############################
 
 
 
 
 all: sources_build free_rtos_kernel_build
-	@echo Module: Kernel
 	@echo Sources: $(KERN_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
 	@echo Init build completed! 
-	@echo "#################################"
+	@echo "################################# <<<<"
 
 
 sources_build:

@@ -1,10 +1,10 @@
 /*
- * File:        kernel.h
+ * File:        dma_pool.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Main kernel api [ Thread related apis]
+ * Moudle:      Modeule mm [ Local Build ] 
+ * Info:        DMA Memory Pool
  *                            
  * Dependency:  None
  *
@@ -23,64 +23,3 @@
  * You should have received a copy of the GNU General Public License 
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
-
-#ifndef __KERNEL_H__
-#define  __KERNEL_H__
-
-/* Standard Include */
-
-
-#include "irq.h"
-#include "kernel_entry.h"
-#include "kernel_thread.h"
-#include "kernel_thread_info.h"
-#include "../include/std/std_types.h"
-
-
-
-#include "../devices/device.h"
-#include "../devices/device_irq.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-}
-#endif
-
-
-
-
-
-
-
-
-
-#endif
-

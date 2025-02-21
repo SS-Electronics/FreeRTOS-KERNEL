@@ -76,34 +76,37 @@ main-build: clean_enviornment $(BUILD_ARTIFACT) secondary-outputs
 secondary-outputs: $(SIZE_OUTPUT) $(BUILD_ARTIFACT).list 
 
 
-$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build kernel_build init_build service_build
-# -mcpu=cortex-m4 -T"/home/subhajitroy005/STM32CubeIDE/workspace_1.15.0/STm32f401_src/STM32F401CDUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STm32f401_src.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build kernel_build init_build service_build mm_build
+	@echo ''
+	@echo 'Linking all..........!'
+	@echo ''
 	$(CPP) -o $(BUILD_LOCATION)$(BUILD_ARTIFACT) @"object.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"$(LINKER_SCRIPT)" -Wl,-Map="$(BUILD_LOCATION)$(BUILD_ARTIFACT).map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	@echo ''
+	@echo 'Generating Artifacts .......!'
+	@echo ''
 	$(CC_OBJDUMP) -S ./build/${BUILD_ARTIFACT} > ./build/${BUILD_ARTIFACT}.lss
 	$(CC_OBJCPY) -O ihex ./build/${BUILD_ARTIFACT} ./build/${BUILD_ARTIFACT}.hex
+	@echo ''
 	@echo '##############################################'
 	@echo ''
 	@echo '   Artifcact Generated [ $@ ] ${BUILD_ARTIFACT}.hex ${BUILD_ARTIFACT}.lss'
 	@echo ''
-	@echo '##############################################'
-	@echo ' '
 
 
 $(SIZE_OUTPUT): $(BUILD_ARTIFACT) makefile object.list $(OPTIONAL_TOOL_DEPS)
-	@echo '##############################################'
+	@echo ''
 	@arm-none-eabi-size  --format=sysv --radix=16 $(BUILD_LOCATION)$(BUILD_ARTIFACT)
-	@echo '##############################################'
-	@echo ' '
+	@echo ''
 
 
 $(BUILD_ARTIFACT).list: $(BUILD_ARTIFACT) makefile object.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objdump -h -S $(BUILD_LOCATION)$(BUILD_ARTIFACT) > "$(BUILD_LOCATION)$(BUILD_ARTIFACT).list"
-	@echo '##############################################'
 	@echo ''
 	@echo '   $(BUILD_ARTIFACT).list Generated...'
 	@echo ''
 	@echo '##############################################'
-	@echo ' '
+	@echo '            Build completed                   '
+	@echo '##############################################'
 
 
 
@@ -119,6 +122,11 @@ kernel_build:
 
 service_build:
 	make -C ./services all TARGET=$(TARGET)
+
+mm_build:
+		make -C ./mm all TARGET=$(TARGET)
+
+
 
 
 directory_check:

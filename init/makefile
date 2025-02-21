@@ -25,23 +25,20 @@
 
 -include ../make_config.mk
 
-$(info #################################)
-$(info Module: Init -- Source Build --)
-
-
-NULL_STR :=
-FILE_EXT :=
-OBJECTS_LOCATION := ./build/objs/
-SOURCE_DIR		 := ./
+$(info ################################# <<<<)
+$(info Module:   Init)
 
 ifeq ( $(TARGET) , $(NULL_STR) )
-$(info Device: No Target Nselected.....!)
+$(error No Target Selected.....!)
 else
-$(info Device: Building Sources........!)
+$(info Target:  $(TARGET))
 endif
 
 
 
+
+
+#################  START Configurations #############################
 
 INIT_SRCS += \
 main.c 
@@ -52,12 +49,13 @@ main.c
 
 
 
+
+
 all: sources_build
-	@echo Module: Init
 	@echo Sources: $(INIT_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
-	@echo Init build completed! 
-	@echo "#################################"
+	@echo Init build completed ......! 
+	@echo "################################# >>>>"
 
 
 sources_build:

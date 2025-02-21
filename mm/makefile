@@ -2,8 +2,8 @@
 # Author:      Subhajit Roy  
 #              subhajitroy005@gmail.com 
 #
-# Moudle:      Modeule Kernel [ Local Build ] 
-# Info:        Compile sources based on spefic target 
+# Moudle:      Modeule mm [ Local Build ] 
+# Info:        Memory Management 
 #                             
 # Dependency:  Configuration
 #
@@ -26,7 +26,7 @@
 -include ../make_config.mk
 
 $(info ################################# <<<<)
-$(info Module:   Services)
+$(info Module:   MM)
 
 ifeq ( $(TARGET) , $(NULL_STR) )
 $(error No Target Selected.....!)
@@ -35,12 +35,17 @@ $(info Target:  $(TARGET))
 endif
 
 
-#################  START Configurations #############################
 
-SERV_SRCS += \
+
+
+MM_SRCS += \
+dma_pool.c
+
 
 
 # Target wise configurations
+
+
 
 
 
@@ -52,14 +57,14 @@ SERV_SRCS += \
 all: sources_build
 	@echo Sources: $(SERV_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
-	@echo Init build completed! 
+	@echo Init build completed ..........! 
 	@echo "################################# >>>>"
 
 
 sources_build:
 	@mkdir -p ../$(OBJECTS_LOCATION)
 
-	@for s in  $(SERV_SRCS); \
+	@for s in  $(MM_SRCS); \
 	do \
 	echo ; \
 	echo Compiling ... $$s ; \

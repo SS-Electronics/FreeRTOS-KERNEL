@@ -18,12 +18,23 @@
 
 /*Standard Library includes*/
 
-# include <stdint.h>
-# include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+
+
+#if defined(STM32F401)
+#include "../../arch/ARM/CMSIS_6/CMSIS/Core/Include/cmsis_compiler.h"
+#endif
+
+
+
+
+
 
 /*Typedefs*/
-typedef int32_t                Std_ReturnType;
-typedef uint8_t                boolean;
+typedef int32_t                	Std_ReturnType;
+typedef uint8_t                	boolean;
 
 /* Global defines*/
 
@@ -39,61 +50,12 @@ typedef uint8_t                boolean;
 #define STD_ON			       0x01
 #define STD_OFF			       0x00
 
-#define E_OK 				   	 0x00u
-#define E_NOT_OK 			   	(Std_ReturnType)1u
-#define E_NO_DTC_AVAILABLE		(Std_ReturnType)2u
-#define E_SESSION_NOT_ALLOWED	(Std_ReturnType)4u
-#define E_PROTOCOL_NOT_ALLOWED	(Std_ReturnType)5u
-#define E_REQUEST_NOT_ACCEPTED	(Std_ReturnType)8u
-#define E_REQUEST_ENV_NOK		(Std_ReturnType)9u
-#define E_PENDING				(Std_ReturnType)10u
-#define E_COMPARE_KEY_FAILED	(Std_ReturnType)11u
-#define E_FORCE_RCRRP			(Std_ReturnType)12u
+#define KERNEL_OK 			   0x00u
+#define KERNEL_ERR 			   (Std_ReturnType)-1
 
-/*Structures*/
-
-typedef struct {
-	// TODO: not done!!
-	uint16_t vendorID;
-	uint16_t moduleID;
-	uint8_t  instanceID;
-
-	uint8_t sw_major_version;    /**< Vendor numbers */
-	uint8_t sw_minor_version;    /**< Vendor numbers */
-	uint8_t sw_patch_version;    /**< Vendor numbers */
-
-	uint8_t ar_major_version;    /**< Autosar spec. numbers */
-	uint8_t ar_minor_version;    /**< Autosar spec. numbers */
-	uint8_t ar_patch_version;    /**< Autosar spec. numbers */
-} Std_VersionInfoType;
-
-/** make compare number... #if version > 10203  ( 1.2.3 ) */
-#define STD_GET_VERSION (_major,_minor,_patch) (_major * 10000 + _minor * 100 + _patch)
-
-/** Create Std_VersionInfoType */
-// PC-Lint Exception MISRA rule 19.12
-//lint -save -esym(960,19.12)
-#define STD_GET_VERSION_INFO(_vi,_module) \
-	if(_vi != NULL) {\
-		((_vi)->vendorID =  _module ## _VENDOR_ID);\
-		((_vi)->moduleID = _module ## _MODULE_ID);\
-		((_vi)->sw_major_version = _module ## _SW_MAJOR_VERSION);\
-		((_vi)->sw_minor_version =  _module ## _SW_MINOR_VERSION);\
-		((_vi)->sw_patch_version =  _module ## _SW_PATCH_VERSION);\
-		((_vi)->ar_major_version =  _module ## _AR_MAJOR_VERSION);\
-		((_vi)->ar_minor_version =  _module ## _AR_MINOR_VERSION);\
-		((_vi)->ar_patch_version =  _module ## _AR_PATCH_VERSION);\
-	}
-//lint -restore
-
-
-typedef struct
-{
-   /* data */
-   uint8_t mask8_t;
-   uint16_t mask16_t;
-   uint32_t mask32_t;
-}mask_types;
+#define MEM_OP_OK			   0
+#define MEM_OP_FAIL	   		   (Std_ReturnType)-1
+#define MEM_OP_NULL_PTR		   (Std_ReturnType)-2
 
 
 #endif
