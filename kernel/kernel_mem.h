@@ -30,6 +30,8 @@
 
 #include "../include/std/std_types.h"
 
+/* FreeRTOS kernel include */
+#include "./FreeRTOS-Kernel/include/FreeRTOS.h"
 
 
 

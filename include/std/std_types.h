@@ -36,6 +36,12 @@
 typedef int32_t                	Std_ReturnType;
 typedef uint8_t                	boolean;
 
+
+
+typedef uint32_t				dma_addr_t;
+
+
+
 /* Global defines*/
 
 # define FALSE                 0x00

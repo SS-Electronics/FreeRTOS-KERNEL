@@ -31,7 +31,7 @@ static uint32_t     thread_counter = 1;
 
 
  
- Std_ReturnType  theread_create( type_thread_function thread_function, 
+ Std_ReturnType  theread_create(type_thread_function thread_function, 
                                 type_thread_struct * thread_handle,
                                 uint32_t stack_depth_bytes,
                                 uint32_t priority,
