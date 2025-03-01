@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Build
 
 on:
   push:
@@ -10,6 +10,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Arm GNU Toolchain (arm-none-eabi-gcc)
+      uses: carlosperate/arm-none-eabi-gcc-action@v1
+      with:
+        release: '10.3-2021.10' # <-- The compiler release to use
 
     steps:
     - uses: actions/checkout@v4
