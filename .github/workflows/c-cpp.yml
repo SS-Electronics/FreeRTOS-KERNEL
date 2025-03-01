@@ -13,6 +13,4 @@ jobs:
     steps:
     - name: arm-none-eabi-gcc
     - uses: fiam/arm-none-eabi-gcc@v1
-      with:
-        release: '10.3-2021.10' # The arm-none-eabi-gcc release to use.
     - run:  make all TARGET=STM32F401
