@@ -4,7 +4,7 @@
  *              subhajitroy005@gmail.com 
  *
  * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Kernel Memory allocation definition
+ * Info:        All memory level atomic opeations definition 
  *                            
  * Dependency:  None
  *
@@ -24,31 +24,21 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
- #include "kernel_mem.h"
+#include "kernel_mem.h"
 
 
 
-void * kmalloc(size_t size)
-{
-	void *ret = NULL;
 
+
+
+
+
+
+
+ void *  kmaloc(size_t size)
+ {
+    void *ret;
 	ret = malloc(size);
 	
 	return ret;
-}
-
-int32_t kfree(void *p)
-{
-    if(p != NULL)
-    {
-        free(p);
-        return MEM_OP_OK;
-    }
-    else
-    {
-        return MEM_OP_NULL_PTR;
-    }
-}
-
-
-
+ }

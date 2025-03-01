@@ -27,10 +27,9 @@
  #ifndef __KERNEL_THREAD_H__
  #define __KERNEL_THREAD_H__
 
-
+#include "../../FreeRTOS-KERNEL-conf/FreeRTOSConfig.h"
 #include "../include/std/std_types.h"
 #include "../../FreeRTOS-KERNEL-conf/OsConfig.h"
-#include "../../FreeRTOS-KERNEL-conf/FreeRTOSConfig.h"
 #include "./FreeRTOS-Kernel/include/FreeRTOS.h"
 #include "./FreeRTOS-Kernel/include/task.h"
 #include "./FreeRTOS-Kernel/include/atomic.h"

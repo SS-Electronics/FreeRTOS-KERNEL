@@ -29,7 +29,7 @@
 
 /* Standard Include */
 
-
+#include "../../FreeRTOS-KERNEL-conf/FreeRTOSConfig.g"
 #include "irq.h"
 #include "kernel_entry.h"
 #include "kernel_thread.h"
