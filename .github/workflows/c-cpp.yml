@@ -2,15 +2,29 @@ name: Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ master ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        type: [Debug, Release]
+
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
     - name: arm-none-eabi-gcc
-    - uses: fiam/arm-none-eabi-gcc@v1
-    - run:  make all TARGET=STM32F401
+      uses: ryanwinter/arm-none-eabi-gcc@master
+      with:
+        release: '10-2021.10'
+
+    - name: Build binary
+      run: |
+        make all TARGET=STM32F401
