@@ -11,12 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Install Arm GNU Toolchain (arm-none-eabi-gcc)
-      - uses: carlosperate/arm-none-eabi-gcc-action@v1
-      - with:
-          release: '14.2.Rel1'
-
-      - uses: actions/checkout@v4
-      - name: make all TARGET=STM32F401
+    - name: arm-none-eabi-gcc
+    - uses: fiam/arm-none-eabi-gcc@v1
+      with:
+        release: '10.3-2021.10' # The arm-none-eabi-gcc release to use.
         run:  make all TARGET=STM32F401
-
