@@ -1,10 +1,10 @@
 /*
- * File:        dma_pool.h
+ * File:        serv_mm.c
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule mm [ Local Build ] 
- * Info:        DMA Memory Pool
+ * Moudle:      Modeule services [ Local Build ] 
+ * Info:        memory management services and initialization
  *                            
  * Dependency:  None
  *
@@ -23,9 +23,49 @@
  * You should have received a copy of the GNU General Public License 
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
-
-#include "dma_pool.h"
-
+#include "serv_mm.h"
 
 
 
+
+
+
+const HeapRegion_t xHeapRegions[] =  
+{  
+    { ( uint8_t * ) 0x20004000UL, 0x2800 }, 
+    { NULL, 0 } /* Terminates the array. */  
+};  
+
+
+
+
+void proc_mm_init(void * arg)
+{
+    /* Heap memeory initialize */
+    /* Pass the array into vPortDefineHeapRegions(). */  
+    vPortDefineHeapRegions( xHeapRegions );
+}
+
+
+
+
+
+
+
+
+
+void vApplicationStackOverflowHook( TaskHandle_t xTask, char * pcTaskName )
+{
+    for( ; ; )
+    {
+    }
+}
+
+void vApplicationMallocFailedHook( void )
+{
+
+    while(1)
+    {
+
+    }
+}

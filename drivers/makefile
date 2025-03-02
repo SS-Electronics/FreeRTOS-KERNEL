@@ -38,30 +38,9 @@ endif
 
 #################  START Configurations #############################
 
-KERN_SRCS += \
-kernel.c \
-irq.c \
-kernel_entry.c \
-kernel_thread.c \
-kernel_mem.c
+DRV_SRCS += \
+drv_cpu.c 
 
-# FreeRTOS related header include directories
-
-FREERTOS_INC_SRC_DIR += \
--IFreeRTOS-Kernel/include/ \
--I../../FreeRTOS-KERNEL-conf/
-
-FREERTOS_SRCS_PATH +=\
-FreeRTOS-Kernel/
-
-FREERTOS_SRCS += \
-croutine.c \
-event_groups.c \
-list.c \
-queue.c \
-stream_buffer.c \
-tasks.c \
-timers.c
 
 # Target wise configurations
 
@@ -69,21 +48,7 @@ timers.c
 #  Core         :   ARM-CM4
 #-----------------------------------------------
 ifeq ($(TARGET), STM32F401)
-FREERTOS_INC_SRC_DIR += \
--IFreeRTOS-Kernel/portable/GCC/ARM_CM4F
 
-FREERTOS_INC_SRC_DIR_1 += \
-FreeRTOS-Kernel/portable/MemMang/
-
-FREERTOS_PORT_SRCS_DIR += \
-FreeRTOS-Kernel/portable/GCC/ARM_CM4F/
-
-
-FREERTOS_PORT_SRCS += \
-port.c
-
-FREERTOS_INC_SRCS_1 += \
-heap_5.c
 
 endif
 
@@ -93,8 +58,8 @@ endif
 
 
 
-all: sources_build free_rtos_kernel_build
-	@echo Sources: $(KERN_SRCS)
+all: sources_build
+	@echo Sources: $(DRV_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
 	@echo Init build completed! 
 	@echo "################################# <<<<"
@@ -103,7 +68,7 @@ all: sources_build free_rtos_kernel_build
 sources_build:
 	@mkdir -p ../$(OBJECTS_LOCATION)
 
-	@for s in  $(KERN_SRCS); \
+	@for s in  $(DRV_SRCS); \
 	do \
 	echo ; \
 	echo Compiling ... $$s ; \
@@ -111,30 +76,6 @@ sources_build:
 	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
-
-	
-
-
-
-
-free_rtos_kernel_build:
-	@mkdir -p ../$(OBJECTS_LOCATION)
-
-	@for s in  $(FREERTOS_SRCS); \
-	do \
-	echo ; \
-	echo Compiling ... $$s ; \
-	echo ; \
-	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o  ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$(FREERTOS_SRCS_PATH)$$s; \
-	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
-	done
-
-	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$(FREERTOS_PORT_SRCS).o $(SOURCE_DIR)$(FREERTOS_PORT_SRCS_DIR)$(FREERTOS_PORT_SRCS);
-	echo "$(OBJECTS_LOCATION)$(FREERTOS_PORT_SRCS).o" >> ../object.list ; 
-
-
-	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$(FREERTOS_INC_SRCS_1).o $(SOURCE_DIR)$(FREERTOS_INC_SRC_DIR_1)$(FREERTOS_INC_SRCS_1);
-	echo "$(OBJECTS_LOCATION)$(FREERTOS_INC_SRCS_1).o" >> ../object.list ; 
 
 
 

@@ -32,7 +32,7 @@ void * kmalloc(size_t size)
 {
 	void *ret = NULL;
 
-	ret = malloc(size);
+	ret = pvPortMalloc(size);
 	
 	return ret;
 }
@@ -41,7 +41,7 @@ int32_t kfree(void *p)
 {
     if(p != NULL)
     {
-        free(p);
+        vPortFree(p);
         return MEM_OP_OK;
     }
     else

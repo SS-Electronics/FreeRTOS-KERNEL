@@ -16,7 +16,7 @@
 #ifndef __DEVICE_H__
 #define __DEVICE_H__
 
-
+#include "stm32_f401.h"
 
 
 #if defined(STM32F401)

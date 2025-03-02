@@ -38,7 +38,8 @@ endif
 #################  START Configurations #############################
 
 SERV_SRCS += \
-
+serv_mm.c \
+serv_task_mgmt.c
 
 # Target wise configurations
 

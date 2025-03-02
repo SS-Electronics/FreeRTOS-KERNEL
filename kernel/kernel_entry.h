@@ -28,7 +28,16 @@
  #define __KERNEL_ENTRY_H__
  
  
- 
+
+/*
+ * FreeRTOS kernel Includes
+ */
+#include "./FreeRTOS-Kernel/include/FreeRTOS.h"
+/*
+ * END: FreeRTOS kernel Includes
+ */
+
+
  
  
  

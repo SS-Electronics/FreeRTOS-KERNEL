@@ -28,16 +28,17 @@
 #define  __KERNEL_H__
 
 /* Standard Include */
-
+#include "../include/std/std_types.h"
 
 #include "irq.h"
 #include "kernel_entry.h"
 #include "kernel_thread.h"
 #include "kernel_thread_info.h"
-#include "../include/std/std_types.h"
+#include "kernel_mem.h"
 
 
 
+//TBD: Via kernel messages only
 #include "../devices/device.h"
 #include "../devices/device_irq.h"
 

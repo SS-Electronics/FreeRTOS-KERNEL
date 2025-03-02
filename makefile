@@ -76,7 +76,7 @@ main-build: clean_enviornment $(BUILD_ARTIFACT) secondary-outputs
 secondary-outputs: $(SIZE_OUTPUT) $(BUILD_ARTIFACT).list 
 
 
-$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build kernel_build init_build service_build mm_build
+$(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build drivers_build kernel_build init_build service_build mm_build
 	@echo ''
 	@echo 'Linking all..........!'
 	@echo ''
@@ -113,6 +113,9 @@ $(BUILD_ARTIFACT).list: $(BUILD_ARTIFACT) makefile object.list $(OPTIONAL_TOOL_D
 
 devices_build:
 	make -C ./devices all TARGET=$(TARGET)
+
+drivers_build:
+	make -C ./drivers all TARGET=$(TARGET)
 
 init_build:
 	make -C ./init all TARGET=$(TARGET)

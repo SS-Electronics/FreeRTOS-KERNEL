@@ -32,6 +32,15 @@
 /* Device interrupt include */
 #include "../devices/device_irq.h"
 
+/*
+ * FreeRTOS kernel Includes
+ */
+#include "./FreeRTOS-Kernel/include/FreeRTOS.h"
+/*
+ * END: FreeRTOS kernel Includes
+ */
+
+
 
 #define MAX_IRQ_SERV		10 	// Maximum Irq services from hardware
 
