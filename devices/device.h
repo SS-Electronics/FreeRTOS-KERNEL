@@ -16,12 +16,14 @@
 #ifndef __DEVICE_H__
 #define __DEVICE_H__
 
-#include "stm32_f401.h"
 
-
-#if defined(STM32F401)
+//TODO: Conditional to the device varianlt specific
 #include "stm32_f401.h"
-#endif
+#include "stm32_f401_peripheral.h"
+
+// #if defined(STM32F401)
+// #include "stm32_f401.h"
+// #endif
 
 
 

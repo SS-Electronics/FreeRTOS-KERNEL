@@ -39,8 +39,8 @@ endif
 #################  START Configurations #############################
 
 DRV_SRCS += \
-drv_cpu.c 
-
+drv_cpu.c \
+drv_uart.c
 
 # Target wise configurations
 
