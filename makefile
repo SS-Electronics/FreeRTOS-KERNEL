@@ -95,7 +95,7 @@ $(BUILD_ARTIFACT) $(BUILD_ARTIFACT).map: directory_check devices_build drivers_b
 
 $(SIZE_OUTPUT): $(BUILD_ARTIFACT) makefile object.list $(OPTIONAL_TOOL_DEPS)
 	@echo ''
-	@arm-none-eabi-size  --format=sysv --radix=16 $(BUILD_LOCATION)$(BUILD_ARTIFACT)
+	@arm-none-eabi-size  --format=sysv --radix=10 $(BUILD_LOCATION)$(BUILD_ARTIFACT)
 	@echo ''
 
 

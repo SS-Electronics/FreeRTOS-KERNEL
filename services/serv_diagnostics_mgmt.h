@@ -1,10 +1,10 @@
 /*
- * File:        kernel.h
+ * File:        serv_diagnostics_mgmt.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Main kernel api [ Thread related apis]
+ * Moudle:      Modeule services [ Local Build ] 
+ * Info:        Diagnostics management
  *                            
  * Dependency:  None
  *
@@ -23,65 +23,29 @@
  * You should have received a copy of the GNU General Public License 
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
-
-#ifndef __KERNEL_H__
-#define  __KERNEL_H__
-
-/* Standard Include */
-
-#include "../include/std/std_types.h"
-#include "irq.h"
-#include "kernel_entry.h"
-#include "kernel_thread.h"
-#include "kernel_thread_info.h"
-#include "kernel_mem.h"
+#ifndef __SERV_DIAGNOSTICS_MGMT_H__
+#define __SERV_DIAGNOSTICS_MGMT_H__
 
 
 
-//TBD: Via kernel messages only
-#include "../devices/device.h"
-#include "../devices/device_irq.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ #include "../include/std/std_types.h"
+ #include "../kernel/kernel.h" 
+ 
+ 
+ 
+ 
+ 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-
-
-
-
-
-
-
-
+#endif /* __cplusplus */
+ 
+ 
+void proc_diagnostic_mgmt_init(void * arg);
+ 
+ 
+ 
 #ifdef __cplusplus
 }
-#endif
-
-
-
-
-
-
-
-
+#endif /* __cplusplus */
 
 #endif
-

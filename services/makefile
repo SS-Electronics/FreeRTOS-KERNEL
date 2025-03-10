@@ -40,7 +40,8 @@ endif
 SERV_SRCS += \
 serv_mm.c \
 serv_task_mgmt.c \
-serv_serial_mgmt.c
+serv_serial_mgmt.c \
+serv_diagnostics_mgmt.c
 
 # Target wise configurations
 

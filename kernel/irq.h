@@ -42,17 +42,15 @@
 
 
 
-#define MAX_IRQ_SERV		10 	// Maximum Irq services from hardware
-
-
 enum __kernel_interrupts_list
 {
-	IRQ_1_SYS_TICK = 0,
-	IRQ_2_PEND_SV,
-	IRQ_3_SW_INT,
+	KERN_IRQ_SYS_HARDFAULT = 0,
+	KERN_IRQ_SYS_BUSFAULT,
+	KERN_IRQ_SYS_USAGEFAULT,
 	IRQ_COMM_1,
 	IRQ_COMM_2,
-	IRQ_COMM_3
+	IRQ_COMM_3,
+	MAX_IRQ_SERV
 };
 
 

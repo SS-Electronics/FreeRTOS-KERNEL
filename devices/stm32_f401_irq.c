@@ -25,8 +25,11 @@
  */
 #include "device_irq.h"
 
-#define NO_OF_CPU_INTERRUPTS    3
-#define NO_OF_COMM_INTERRUPTS   1
+#define NO_OF_CPU_INTERRUPTS    4
+#define NO_OF_COMM_INTERRUPTS   3
+
+
+
 
 
 #define NO_OF_TOTAL_INTERRUPTS  (NO_OF_CPU_INTERRUPTS + NO_OF_COMM_INTERRUPTS)
@@ -41,7 +44,7 @@ static type_device_cpu_irq_handle  cache_device_cpu_irq_handle[NO_OF_CPU_INTERRU
 
 type_device_cpu_irq_handle * dev_get_irq_cpu_handle(uint32_t irq_idx)
 {
-    if(irq_idx < NO_OF_CPU_INTERRUPTS )
+    if(irq_idx < NO_OF_TOTAL_INTERRUPTS )
     {
         /* Reset the interrupt counters upon handle call / init */
         cache_device_cpu_irq_handle[irq_idx].hw_irq_counter = 0;
@@ -97,22 +100,38 @@ void TIM2_IRQHandler(void)
 //     int a = 10;
 // }
 
-// void HardFault_Handler(void)
-// {
-//     int a = 10;
-// }
+void HardFault_Handler(void)
+{
+    if (cache_device_cpu_irq_handle[3].irq_handler != NULL)
+    {
+        (*cache_device_cpu_irq_handle[3].irq_handler)(NULL);
+        cache_device_cpu_irq_handle[3].hw_irq_counter++;
+    }
+}
 
-// void MemManage_Handler(void)
-// {
-//     int a = 10;
-// }
+void MemManage_Handler(void)
+{
+    if (cache_device_cpu_irq_handle[4].irq_handler != NULL)
+    {
+        (*cache_device_cpu_irq_handle[4].irq_handler)(NULL);
+        cache_device_cpu_irq_handle[4].hw_irq_counter++;
+    }
+}
 
-// void BusFault_Handler(void)
-// {
-//     int a = 10;
-// }
+void BusFault_Handler(void)
+{
+    if (cache_device_cpu_irq_handle[5].irq_handler != NULL)
+    {
+        (*cache_device_cpu_irq_handle[5].irq_handler)(NULL);
+        cache_device_cpu_irq_handle[5].hw_irq_counter++;
+    }
+}
 
-// void UsageFault_Handler(void)
-// {
-//     int a = 10;
-// }
+void UsageFault_Handler(void)
+{
+    if (cache_device_cpu_irq_handle[6].irq_handler != NULL)
+    {
+        (*cache_device_cpu_irq_handle[6].irq_handler)(NULL);
+        cache_device_cpu_irq_handle[6].hw_irq_counter++;
+    }
+}
