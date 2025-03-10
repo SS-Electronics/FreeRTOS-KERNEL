@@ -1,10 +1,10 @@
 /*
- * File:        dma_pool.h
+ * File:        serv_serial_mgmt.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule mm [ Local Build ] 
- * Info:        DMA Memory Pool
+ * Moudle:      Modeule services [ Local Build ] 
+ * Info:        All serial commnication services
  *                            
  * Dependency:  None
  *
@@ -24,8 +24,30 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "dma_pool.h"
-
-
-
-
+ #ifndef __SERV_MM_H__
+ #define __SERV_MM_H__
+ 
+ 
+ 
+  #include "../include/std/std_types.h"
+  #include "../kernel/kernel.h" 
+  
+  #include "../devices/device.h"
+  
+  
+  
+  
+ #ifdef __cplusplus
+ extern "C" {
+ #endif /* __cplusplus */
+  
+  
+ Std_ReturnType proc_serial_mgmt_init(void);
+  
+  
+  
+ #ifdef __cplusplus
+ }
+ #endif /* __cplusplus */
+ 
+ #endif

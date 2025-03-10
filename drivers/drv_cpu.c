@@ -1,10 +1,10 @@
 /*
- * File:        dma_pool.h
+ * File:        drv_cpu.c
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule mm [ Local Build ] 
- * Info:        DMA Memory Pool
+ * Moudle:      Modeule init [ Local Build ] 
+ * Info:        CPU related drivers
  *                            
  * Dependency:  None
  *
@@ -24,8 +24,6 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "dma_pool.h"
-
-
+ #include "drv_cpu.h"
 
 

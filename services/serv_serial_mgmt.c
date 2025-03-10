@@ -1,10 +1,10 @@
 /*
- * File:        dma_pool.h
+ * File:        serv_serial_mgmt.c
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule mm [ Local Build ] 
- * Info:        DMA Memory Pool
+ * Moudle:      Modeule services [ Local Build ] 
+ * Info:        All serial commnication services
  *                            
  * Dependency:  None
  *
@@ -23,8 +23,25 @@
  * You should have received a copy of the GNU General Public License 
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
+#include "serv_serial_mgmt.h"
 
-#include "dma_pool.h"
+
+int32_t     available_chip_dev_uart;
+int32_t     available_chip_dev_iic;
+int32_t     available_chip_dev_spi;
+
+
+
+
+
+Std_ReturnType proc_serial_mgmt_init(void)
+{
+        /* Initialize available drivers */
+
+
+
+
+}
 
 
 

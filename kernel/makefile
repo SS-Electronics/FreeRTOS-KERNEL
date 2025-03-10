@@ -83,7 +83,7 @@ FREERTOS_PORT_SRCS += \
 port.c
 
 FREERTOS_INC_SRCS_1 += \
-heap_4.c
+heap_5.c
 
 endif
 

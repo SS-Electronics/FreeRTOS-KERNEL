@@ -42,26 +42,44 @@ typedef uint32_t				dma_addr_t;
 
 
 
-/* Global defines*/
 
-# define FALSE                 0x00
-# define TRUE                  0x01
 
-#define STD_HIGH		       0x01
-#define STD_LOW			       0x00
 
-#define STD_ACTIVE		       0x01
-#define STD_IDLE		       0x00
 
-#define STD_ON			       0x01
-#define STD_OFF			       0x00
 
-#define KERNEL_OK 			   0x00u
-#define KERNEL_ERR 			   (Std_ReturnType)-1
+/* STD Definitions */
+#define STD_FALSE               (0)
+#define STD_TRUE                (1)
 
-#define MEM_OP_OK			   0
-#define MEM_OP_FAIL	   		   (Std_ReturnType)-1
-#define MEM_OP_NULL_PTR		   (Std_ReturnType)-2
+#define STD_HIGH		        (1)
+#define STD_LOW			        (0)
+
+#define STD_ACTIVE		        (1)
+#define STD_IDLE		        (0)
+
+#define STD_ON			        (1)
+#define STD_OFF			        (0)
+
+
+/*
+ * Error Definitions 
+ */
+#define ERROR_NONE              (0) 
+#define ERROR_NULL_PTR          ((Std_ReturnType)-1)
+#define ERROR_INVALID_PARM      ((Std_ReturnType)-2)
+#define ERROR_TIMEOUT           ((Std_ReturnType)-3)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #endif

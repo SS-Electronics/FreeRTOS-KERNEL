@@ -1,10 +1,10 @@
 /*
- * File:        dma_pool.h
+ * File:        stm32_f401_peripheral.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule mm [ Local Build ] 
- * Info:        MDA Memory pool create + free api
+ * Moudle:      Modeule devices [ Local Build ] 
+ * Info:        CHIP related peripheral description
  *                            
  * Dependency:  None
  *
@@ -24,9 +24,22 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "../include/std/std_types.h"
-#include "../kernel/kernel.h" 
+#ifndef __STM32_F401_PERIPHERAL_H__
+#define __STM32_F401_PERIPHERAL_H__
 
+
+#include "../include/std/std_types.h"
+
+#include "stm32_f401.h"
+
+
+/*
+* Peripherals listing
+*/
+#define CHIP_COM_NO_OF_UART     1
+#define CHIP_COM_NO_OF_IIC      1
+#define CHIP_COM_NO_OF_SPI      1
+#define CHIP_COM_NO_OF_CAN      1
 
 
 
@@ -36,9 +49,26 @@ extern "C" {
 #endif /* __cplusplus */
 
 
+Std_ReturnType  get_max_uart_peripheral(void);
+Std_ReturnType  get_max_iic_peripheral(void);
+Std_ReturnType  get_max_spi_peripheral(void);
+Std_ReturnType  get_max_can_peripheral(void);
 
+void*  get_chip_uart_peripheral(uint32_t chip_peri_idx);
+void*  get_chip_iic_peripheral(uint32_t chip_peri_idx);
+void*  get_chip_spi_peripheral(uint32_t chip_peri_idx);
+void*  get_chip_can_peripheral(uint32_t chip_peri_idx);
 
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
+
+
+
+
+
+
+
+#endif

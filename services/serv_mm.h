@@ -1,10 +1,10 @@
 /*
- * File:        dma_pool.h
+ * File:        serv_mm.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule mm [ Local Build ] 
- * Info:        DMA Memory Pool
+ * Moudle:      Modeule services [ Local Build ] 
+ * Info:        memory management services
  *                            
  * Dependency:  None
  *
@@ -23,9 +23,29 @@
  * You should have received a copy of the GNU General Public License 
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
-
-#include "dma_pool.h"
-
-
+#ifndef __SERV_MM_H__
+#define __SERV_MM_H__
 
 
+
+ #include "../include/std/std_types.h"
+ #include "../kernel/kernel.h" 
+ 
+ 
+ 
+ 
+ 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+ 
+ 
+void proc_mm_init(void * arg);
+ 
+ 
+ 
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif

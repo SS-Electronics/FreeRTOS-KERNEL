@@ -35,6 +35,9 @@ void systick_cb(void * des)
 
 }
 
+static void exampleTask( void * parameters ) __attribute__( ( noreturn ) );
+
+
 void task_1(void * arg)
 {
     int * ptr = arg;
@@ -52,22 +55,32 @@ type_thread_struct thread_1;
 
 int main(void)
 {
-    /* Initialize hardware */
-
+    /*
+     Initialize services 
+     */
+    proc_mm_init(NULL);
+    proc_serial_mgmt_init();
+    
+    
     /* 
      * Initialize kernel 
      */
     /* initilize interrupts */
-    local_desc = register_hw_cb(0,systick_cb,0);
+    
 
    
 
-    int id = theread_create(&task_1, &thread_1, 128, 1, "hello", NULL);
+    int id = theread_create(&task_1, &thread_1, 128, 1, "hello", &thread_1);
+
+#if (__ARM_ARCH_7A__ == 0U)
+	/* Service Call interrupt might be configured before kernel start     */
+	/* and when its priority is lower or equal to BASEPRI, svc intruction */
+	/* causes a Hard Fault.                                               */
+	//NVIC_SetPriority (SVCall_IRQn, 0U);
+#endif
 
 
-
-    
-
+    vTaskStartScheduler();
 
     while(1)
     {
@@ -77,3 +90,7 @@ int main(void)
 }
 
 
+void vApplicationDaemonTaskStartupHook( void )
+{
+
+}

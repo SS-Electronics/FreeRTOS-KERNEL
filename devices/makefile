@@ -58,7 +58,8 @@ endif
 ifeq ($(TARGET), STM32F401)
 DEVICE_SRCS += \
 stm32_f401_system.c \
-stm32_f401_irq.c
+stm32_f401_irq.c \
+stm32_f401_peripheral.c
 
 DEVICE_ASM_SRC += \
 stm32_f401_startup.s

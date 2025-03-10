@@ -25,8 +25,9 @@
 
 -include ../make_config.mk
 
+
 $(info ################################# <<<<)
-$(info Module:   Services)
+$(info Module:   Kernel)
 
 ifeq ( $(TARGET) , $(NULL_STR) )
 $(error No Target Selected.....!)
@@ -37,13 +38,19 @@ endif
 
 #################  START Configurations #############################
 
-SERV_SRCS += \
-serv_mm.c \
-serv_task_mgmt.c \
-serv_serial_mgmt.c
+DRV_SRCS += \
+drv_cpu.c \
+drv_uart.c
 
 # Target wise configurations
 
+#-----------------------------------------------
+#  Core         :   ARM-CM4
+#-----------------------------------------------
+ifeq ($(TARGET), STM32F401)
+
+
+endif
 
 
 #################  END Configurations #############################
@@ -52,21 +59,21 @@ serv_serial_mgmt.c
 
 
 all: sources_build
-	@echo Sources: $(SERV_SRCS)
+	@echo Sources: $(DRV_SRCS)
 	@echo Obj Locaton: $(OBJECTS_LOCATION)
 	@echo Init build completed! 
-	@echo "################################# >>>>"
+	@echo "################################# <<<<"
 
 
 sources_build:
 	@mkdir -p ../$(OBJECTS_LOCATION)
 
-	@for s in  $(SERV_SRCS); \
+	@for s in  $(DRV_SRCS); \
 	do \
 	echo ; \
 	echo Compiling ... $$s ; \
 	echo ; \
-	$(CC) -D$(TARGET) $(INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
+	$(CC) -D$(TARGET) $(FREERTOS_INC_SRC_DIR) $(CC_OPTIMIZATION)  $(CC_EXTRA_FLAGS) $(CC_INPUT_STD) $(CC_WARNINGS) $(CC_TARGET_PROP) -o ../$(OBJECTS_LOCATION)$$s.o $(SOURCE_DIR)$$s; \
 	echo "$(OBJECTS_LOCATION)$$s.o" >> ../object.list ; \
 	done
 

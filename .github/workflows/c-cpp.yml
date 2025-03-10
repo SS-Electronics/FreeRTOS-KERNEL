@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Arm GNU Toolchain (arm-none-eabi-gcc)
+      uses: carlosperate/arm-none-eabi-gcc-action@v1
+      with:
+        release: '10.3-2021.10' # <-- The compiler release to use
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: make all TARGET=STM32F401
+      run: make all TARGET=STM32F401

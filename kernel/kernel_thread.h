@@ -27,16 +27,28 @@
  #ifndef __KERNEL_THREAD_H__
  #define __KERNEL_THREAD_H__
 
-#include "../../FreeRTOS-KERNEL-conf/FreeRTOSConfig.h"
+/* Seperate include of FreeRTOS apis */
 #include "../include/std/std_types.h"
 #include "../../FreeRTOS-KERNEL-conf/OsConfig.h"
+#include "../../FreeRTOS-KERNEL-conf/FreeRTOSConfig.h"
+
+
+/*
+ * FreeRTOS kernel Includes
+ */
 #include "./FreeRTOS-Kernel/include/FreeRTOS.h"
 #include "./FreeRTOS-Kernel/include/task.h"
-#include "./FreeRTOS-Kernel/include/atomic.h"
+/*
+ * END: FreeRTOS kernel Includes
+ */
 
+
+
+/*
+ * Kernel related includes
+ */
 
 #include "kernel_thread_info.h"
-
 
 
 

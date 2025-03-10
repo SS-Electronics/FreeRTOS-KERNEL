@@ -27,18 +27,23 @@
 #include "kernel_mem.h"
 
 
-
-
-
-
-
-
-
-
  void *  kmaloc(size_t size)
  {
     void *ret;
-	ret = malloc(size);
+	ret = pvPortMalloc(size);
 	
 	return ret;
- }
+}
+
+int32_t kfree(void *p)
+{
+    if(p != NULL)
+    {
+        vPortFree(p);
+        return ERROR_NONE;
+    }
+    else
+    {
+        return ERROR_NULL_PTR;
+    }
+}

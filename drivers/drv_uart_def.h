@@ -1,10 +1,10 @@
 /*
- * File:        kernel.h
+ * File:        drv_uart_def.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Main kernel api [ Thread related apis]
+ * Moudle:      Modeule drivers [ Local Build ] 
+ * Info:        UART drivers related definition
  *                            
  * Dependency:  None
  *
@@ -24,24 +24,33 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __KERNEL_H__
-#define  __KERNEL_H__
+ #ifndef __DRV_UART_H__
+ #define __DRV_UART_H__
 
-/* Standard Include */
-
-#include "../../FreeRTOS-KERNEL-conf/FreeRTOSConfig.g"
-#include "../include/std/std_types.h"
-#include "irq.h"
-#include "kernel_entry.h"
-#include "kernel_thread.h"
-#include "kernel_thread_info.h"
-#include "kernel_mem.h"
-
-
-
-//TBD: Via kernel messages only
+/* Device includes  */
 #include "../devices/device.h"
-#include "../devices/device_irq.h"
+
+
+
+typedef struct 
+{
+    USART_TypeDef       *device_instance;
+    uint32_t            baud_rate;
+    uint32_t            packet_size;
+    uint32_t            no_of_stop_bits;
+    uint32_t            parity;
+    uint32_t            mode;
+    uint32_t            hw_flow_ctrl;
+    uint32_t            over_sampling;
+    uint8_t             *tx_buffer_ptr;
+    uint32_t            tx_buffer_len;
+    uint32_t            tx_byte_counter;
+    uint8_t             *rx_buffer_ptr;
+    uint32_t            rx_buffer_len;
+    uint32_t            rx_byte_counter;
+    uint32_t            error_counter;            
+    /* data */
+}type_drv_uart_handle;
 
 
 
@@ -59,30 +68,4 @@
 
 
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-
-
-
-
-
-
-
-#ifdef __cplusplus
-}
-#endif
-
-
-
-
-
-
-
-
-
-#endif
-
+ #endif
