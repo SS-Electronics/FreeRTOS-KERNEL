@@ -81,3 +81,38 @@ void TIM2_IRQHandler(void)
         cache_device_cpu_irq_handle[2].hw_irq_counter++;
     }
 }
+
+// void WWDG_IRQHandler(void)
+// {
+//     int a = 10;
+// }
+
+// void FLASH_IRQHandler(void)
+// {
+//     int a = 10;
+// }
+
+// void NMI_Handler(void)
+// {
+//     int a = 10;
+// }
+
+// void HardFault_Handler(void)
+// {
+//     int a = 10;
+// }
+
+// void MemManage_Handler(void)
+// {
+//     int a = 10;
+// }
+
+// void BusFault_Handler(void)
+// {
+//     int a = 10;
+// }
+
+// void UsageFault_Handler(void)
+// {
+//     int a = 10;
+// }

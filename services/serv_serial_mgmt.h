@@ -1,10 +1,10 @@
 /*
- * File:        kernel_mem.c
+ * File:        serv_serial_mgmt.h
  * Author:      Subhajit Roy  
  *              subhajitroy005@gmail.com 
  *
- * Moudle:      Modeule Kernel [ Local Build ] 
- * Info:        Kernel Memory allocation definition
+ * Moudle:      Modeule services [ Local Build ] 
+ * Info:        All serial commnication services
  *                            
  * Dependency:  None
  *
@@ -24,31 +24,30 @@
  *along with FreeRTOS-KERNEL. If not, see <https://www.gnu.org/licenses/>.
  */
 
- #include "kernel_mem.h"
-
-
-
-void * kmalloc(size_t size)
-{
-	void *ret = NULL;
-
-	ret = pvPortMalloc(size);
-	
-	return ret;
-}
-
-int32_t kfree(void *p)
-{
-    if(p != NULL)
-    {
-        vPortFree(p);
-        return ERROR_NONE;
-    }
-    else
-    {
-        return ERROR_NULL_PTR;
-    }
-}
-
-
-
+ #ifndef __SERV_MM_H__
+ #define __SERV_MM_H__
+ 
+ 
+ 
+  #include "../include/std/std_types.h"
+  #include "../kernel/kernel.h" 
+  
+  #include "../devices/device.h"
+  
+  
+  
+  
+ #ifdef __cplusplus
+ extern "C" {
+ #endif /* __cplusplus */
+  
+  
+ Std_ReturnType proc_serial_mgmt_init(void);
+  
+  
+  
+ #ifdef __cplusplus
+ }
+ #endif /* __cplusplus */
+ 
+ #endif

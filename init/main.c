@@ -59,7 +59,7 @@ int main(void)
      Initialize services 
      */
     proc_mm_init(NULL);
-
+    proc_serial_mgmt_init();
     
     
     /* 
@@ -76,7 +76,7 @@ int main(void)
 	/* Service Call interrupt might be configured before kernel start     */
 	/* and when its priority is lower or equal to BASEPRI, svc intruction */
 	/* causes a Hard Fault.                                               */
-	NVIC_SetPriority (SVCall_IRQn, 0U);
+	//NVIC_SetPriority (SVCall_IRQn, 0U);
 #endif
 
 

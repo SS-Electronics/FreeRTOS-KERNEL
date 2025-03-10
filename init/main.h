@@ -28,8 +28,11 @@
 #define __MAIN_H__
 
 #include "../kernel/kernel.h"
-#include "../services/serv_mm.h"
 
+/* Services include for entry points */
+#include "../services/serv_mm.h"
+#include "../services/serv_task_mgmt.h"
+#include "../services/serv_serial_mgmt.h"
 
 
 
